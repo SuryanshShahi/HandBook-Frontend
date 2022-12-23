@@ -305,25 +305,45 @@ function ResponsiveDrawer() {
 
   const [userData, setUserData] = useState([]);
 
-  const callProfilePage = async () => {
-    const res = await fetch("https://handbook-backend.onrender.com/users", {
+  const callProfilePage = () => {
+    axios.get("https://handbook-backend.onrender.com/users", {
       method: "GET",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
       credentials: "include",
-    });
-    const data = await res.json();
-    setUserData(data);
-    console.log(userData);
+    }).then((data)=>{
+      setUserData(data);
+    }).catch((err)=>console.log(err))
+    // const data = await res.json();
+    // setUserData(data);
+    // console.log(userData);
 
-    if (!res.status === 200) {
-      const error = new Error(res.error);
-      throw error;
-      // console.log("hello");
-    }
+    // if (!res.status === 200) {
+    //   const error = new Error(res.error);
+    //   throw error;
+    // }
   };
+
+  //  const callProfilePage = async () => {
+  //   const res = await fetch("https://handbook-backend.onrender.com/users", {
+  //     method: "GET",
+  //     headers: {
+  //       Accept: "application/json",
+  //       "Content-Type": "application/json",
+  //     },
+  //     credentials: "include",
+  //   });
+  //   const data = await res.json();
+  //   setUserData(data);
+  //   console.log(userData);
+
+  //   if (!res.status === 200) {
+  //     const error = new Error(res.error);
+  //     throw error;
+  //   }
+  // };
 
   // ------------------------------------------------------------------------------------------------------------------
   // ---------------------------------------------------Calendar-------------------------------------------------------
@@ -1851,7 +1871,7 @@ function ResponsiveDrawer() {
                                                 color: "white",
                                               }}
                                             >
-                                              hello
+                                              Document
                                             </div>
                                             <div
                                               className="ml-auto text-white removeBtn"
@@ -1944,7 +1964,7 @@ function ResponsiveDrawer() {
                                     className="modal-content p-5"
                                     style={{ background: "#1a1a1a" }}
                                   >
-                                    <div className="position-relative ml-5">
+                                    <div className="position-relative mt-5 justify-content-center d-flex">
                                       <AudioRecorder
                                         onRecordingComplete={(e) =>
                                           addAudioElement(e)
@@ -1952,15 +1972,15 @@ function ResponsiveDrawer() {
                                         recorderControls={recorderControls}
                                       />
                                     </div>
-                                    <div className="d-flex">
-                                      <button
+                                    <div className="d-flex justify-content-center my-5">
+                                      <button className="btn btn-primary border-0 mx-2"
                                         onClick={
                                           recorderControls.startRecording
                                         }
                                       >
                                         Start recording
                                       </button>
-                                      <button
+                                      <button  className="btn btn-danger border-0 mx-2"
                                         onClick={recorderControls.stopRecording}
                                       >
                                         Stop recording
