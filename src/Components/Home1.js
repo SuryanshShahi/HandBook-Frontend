@@ -103,9 +103,10 @@ function ResponsiveDrawer() {
   };
   window.addEventListener("scroll", changeNavbar);
 
+  const [date1, setDate1] = useState();
   setInterval(() => {
-    document.getElementById("dateandtime").innerHTML = refreshDate(new Date());
-  }, 60000);
+    setDate1(refreshDate(new Date()))
+  }, 1000);
 
   const refreshDate = (date) => {
     return date.toLocaleString([], {
@@ -117,7 +118,12 @@ function ResponsiveDrawer() {
       minute: "2-digit",
     });
   };
-
+  const closeEditor = () => {
+    setdrawerWidth(266);
+    document.body.style.background = "black";
+    document.getElementById("navbar").style.display = "block";
+    setActive(false);
+  };
   const drawer = (
     <div>
       <Toolbar />
@@ -195,7 +201,7 @@ function ResponsiveDrawer() {
               Home
             </div>
           </li>
-          <li className="py-2" style={{ width: "100%" }}>
+          <li className="py-2" style={{ width: "100%" }}      onClick={closeEditor}>
             <div
               className="p-3 tab align-items-center d-flex text-white"
               type="button"
@@ -209,7 +215,7 @@ function ResponsiveDrawer() {
               Compose Email
             </div>
           </li>
-          <li className="py-2" style={{ width: "100%" }}>
+          <li className="py-2" style={{ width: "100%" }}      onClick={closeEditor}>
             <div
               className="p-3 tab align-items-center d-flex text-white"
               type="button"
@@ -223,7 +229,7 @@ function ResponsiveDrawer() {
               DropBox
             </div>
           </li>
-          <li className="py-2" style={{ width: "100%" }}>
+          <li className="py-2" style={{ width: "100%" }}      onClick={closeEditor}>
             <div
               className="p-3 tab align-items-center d-flex text-white"
               type="button"
@@ -237,7 +243,7 @@ function ResponsiveDrawer() {
               Calendar
             </div>
           </li>
-          <li className="py-2" style={{ width: "100%" }}>
+          <li className="py-2" style={{ width: "100%" }}      onClick={closeEditor}>
             <div
               className="p-3 tab align-items-center d-flex text-white"
               type="button"
@@ -303,47 +309,30 @@ function ResponsiveDrawer() {
   // ---------------------------------------------------UserData-------------------------------------------------------
   // ------------------------------------------------------------------------------------------------------------------
 
-  const [userData, setUserData] = useState([]);
+  const [userData, setUserData] = useState({
+    fname: "",
+    email: "",
+  });
 
-  const callProfilePage = () => {
-    axios.get("https://handbook-backend.onrender.com/users", {
+
+   const callProfilePage = async () => {
+    const res = await fetch("/users", {
       method: "GET",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
       credentials: "include",
-    }).then((data)=>{
-      setUserData(data);
-    }).catch((err)=>console.log(err))
-    // const data = await res.json();
-    // setUserData(data);
-    // console.log(userData);
+    });
+    const data = await res.json();
+    setUserData(data);
+    console.log(userData);
 
-    // if (!res.status === 200) {
-    //   const error = new Error(res.error);
-    //   throw error;
-    // }
+    if (!res.status === 200) {
+      const error = new Error(res.error);
+      throw error;
+    }
   };
-
-  //  const callProfilePage = async () => {
-  //   const res = await fetch("https://handbook-backend.onrender.com/users", {
-  //     method: "GET",
-  //     headers: {
-  //       Accept: "application/json",
-  //       "Content-Type": "application/json",
-  //     },
-  //     credentials: "include",
-  //   });
-  //   const data = await res.json();
-  //   setUserData(data);
-  //   console.log(userData);
-
-  //   if (!res.status === 200) {
-  //     const error = new Error(res.error);
-  //     throw error;
-  //   }
-  // };
 
   // ------------------------------------------------------------------------------------------------------------------
   // ---------------------------------------------------Calendar-------------------------------------------------------
@@ -383,12 +372,7 @@ function ResponsiveDrawer() {
     setdrawerWidth(266);
     setExpanded(false);
   };
-  const closeEditor = () => {
-    setdrawerWidth(266);
-    document.body.style.background = "black";
-    document.getElementById("navbar").style.display = "block";
-    setActive(false);
-  };
+
   const showEditor = () => {
     setActive(true);
     document.getElementById("navbar").style.display = "none";
@@ -669,7 +653,7 @@ function ResponsiveDrawer() {
                   className="px-lg-5 px-md-5 px-3 mb-lg-0 mb-2"
                   id="dateandtime"
                   style={{ marginLeft: "auto", fontSize: "17px" }}
-                ></div>
+                >{date1}</div>
                 <div
                   className="px-2 navbar-nav"
                   id="loginProfileIcon"
@@ -682,7 +666,7 @@ function ResponsiveDrawer() {
                         &nbsp;{userData.fname || "Profile"}
                       </div>
                     </NavLink>
-                    <div className="dropdown-menu bg-transparent rounded-0 text-white border-0 position-absolute">
+                    <div className="dropdown-menu bg-transparent py-3 rounded-0 text-white border-0 position-absolute">
                       <div
                         className="p-3"
                         style={{
@@ -695,6 +679,8 @@ function ResponsiveDrawer() {
                           className="list-unstyled text-white m-0"
                           style={{ fontSize: "14px" }}
                         >
+                        {console.log(userData.fname)}
+                        {userData.fname !== "" ? (
                           <NavLink
                             to="/profile"
                             className="text-decoration-none text-white"
@@ -711,7 +697,25 @@ function ResponsiveDrawer() {
                               </div>
                             </div>
                           </NavLink>
-
+                          ):(
+                        <div style={{ color: "white" }}>
+                          <div style={{ fontWeight: "600" }}>Welcome</div>
+                          <div>to access account</div>
+                          <NavLink to="/login">
+                            <div
+                              className="btn btn-danger mt-3 mb-2 bg-transparent loginBtn"
+                              style={{
+                                color: "#5082ff",
+                                transition: "0.5s",
+                                fontWeight: "600",
+                                border: "1px solid #5082ff",
+                                fontSize:"14px"
+                              }}
+                            >
+                              LOGIN / SIGNUP
+                            </div>
+                          </NavLink>
+                        </div>)}
                           <hr style={{ color: "#A9ABB3" }}></hr>
                           <li style={{ marginTop: "12px" }}>Home</li>
                           <li>Compose Email</li>

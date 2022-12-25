@@ -10,7 +10,7 @@ function Profile() {
 
   const callProfilePage = async () => {
     try {
-      const res = await fetch("https://handbook-backend.onrender.com/users", {
+      const res = await fetch("/users", {
         method: "GET",
         headers: {
           Accept: "application/json",
@@ -25,7 +25,6 @@ function Profile() {
       if (!res.status === 200) {
         const error = new Error(res.error);
         throw error;
-        // console.log("hello");
       }
     } catch (err) {
       console.log(err);

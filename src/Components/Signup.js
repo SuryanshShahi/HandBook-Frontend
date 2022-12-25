@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink, useHistory } from "react-router-dom";
 import googleLogo from "../Images/google.png";
 import { ToastContainer, toast } from "react-toastify";
@@ -27,7 +27,7 @@ function Signup() {
 
     const { fname, lname, email, mobile, password, cpassword } = user;
     console.log(user);
-    const res = await fetch("https://handbook-backend.onrender.com/signup1", {
+    const res = await fetch("/signup1", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -63,8 +63,11 @@ function Signup() {
         position: toast.POSITION.BOTTOM_RIGHT,
         className: "toast-login",
       });
+      setSpinner(true);
+      setTimeout(() => {
+        history.push("/login");
+      }, 1000);
       console.log("SignUp Successful");
-      history.push("/");
     } else {
       toast.error("Invalid Credentials !", {
         position: toast.POSITION.BOTTOM_RIGHT,
@@ -73,6 +76,14 @@ function Signup() {
       console.log("Invalid Credentials");
     }
   };
+
+  const [spinner, setSpinner] = useState(false);
+  useEffect(() => {
+    setSpinner(true);
+    setTimeout(() => {
+      setSpinner(false);
+    }, 1000);
+  }, []);
   return (
     <section>
       <ToastContainer />
@@ -88,6 +99,26 @@ function Signup() {
             boxShadow: "0px 4px 24px rgb(0 0 0 / 10%)",
           }}
         >
+        {spinner ? (
+          <div
+            className="align-items-center justify-content-center d-flex"
+            style={{
+              height: "94vh",
+            }}
+          >
+            <div
+              className="align-items-center justify-content-center d-flex"
+              style={{
+                borderRadius: "50%",
+                width: "40px",
+                height: "40px",
+                boxShadow: "rgb(0 0 0 / 23%) 0px 0.5px 3px 1px",
+              }}
+            >
+              <div id="Profilespinner" className="text-center"></div>
+            </div>
+          </div>
+        ) : (
           <div className="py-4">
             <div className="mx-4">
               <div className="justify-content-center d-flex">
@@ -254,7 +285,7 @@ function Signup() {
                 </NavLink>
               </div>
             </div>
-          </div>
+          </div>)}
         </div>
       </div>
     </section>
