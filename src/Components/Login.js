@@ -24,7 +24,6 @@ function Login() {
       }),
     });
 
-    const data = res.json();
     if (res.status === 201) {
       toast.success("Login Successful !", {
         position: toast.POSITION.BOTTOM_RIGHT,
