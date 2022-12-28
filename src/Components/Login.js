@@ -10,44 +10,11 @@ function Login() {
   const [text, setText] = useState(``);
   const [password, setPassword] = useState(``);
 
-  const PostData = async (e) => {
-    e.preventDefault();
-    console.log(text);
-    console.log(password);
-    const res = await fetch("/login", {
-      method: "POST",
-      PORT: "5000",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        text,
-        password,
-      }),
-    });
-
-    if (res.status === 201) {
-      toast.success("Login Successful !", {
-        position: toast.POSITION.BOTTOM_RIGHT,
-        className: "toast-login",
-      });
-      setSpinner(true);
-      setTimeout(() => {
-        history.push("/");
-      }, 1000);
-      console.log("Login Successful");
-    } else {
-      toast.error("Invalid Credentials !", {
-        position: toast.POSITION.BOTTOM_RIGHT,
-        className: "toast-login",
-      });
-      console.log("Invalid Credentials");
-    }
-  };
-
   // const PostData = async (e) => {
   //   e.preventDefault();
   //   console.log(text);
   //   console.log(password);
-  //   axios.post("/login", {
+  //   const res = await fetch("/login", {
   //     method: "POST",
   //     PORT: "5000",
   //     headers: { "Content-Type": "application/json" },
@@ -55,29 +22,72 @@ function Login() {
   //       text,
   //       password,
   //     }),
-  //   })
-  //     .then(() => console.log("res"))
-  //     .catch((err) => console.log(err));
-  // };
-  //  axios
-  //   .post("/login", {
-  //     text,
-  //     password,
-  //   })
-  //   .then((res)=> {
-  //     console.log(res);
-  //     console.log("Login Successful");
-  //   })
-  //   .catch((error)=> {
-  //     console.log(error);
   //   });
-  // }
-  // const data = res.json();
-  // if (res.status === 201) {
-  //   console.log("Login Successful");
-  // } else {
-  //   console.log("Invalid Credentials");
-  // }
+
+  //   if (res.status === 201) {
+  //     toast.success("Login Successful !", {
+  //       position: toast.POSITION.BOTTOM_RIGHT,
+  //       className: "toast-login",
+  //     });
+  //     setSpinner(true);
+  //     setTimeout(() => {
+  //       history.push("/");
+  //     }, 1000);
+  //     console.log("Login Successful");
+  //   } else {
+  //     toast.error("Invalid Credentials !", {
+  //       position: toast.POSITION.BOTTOM_RIGHT,
+  //       className: "toast-login",
+  //     });
+  //     console.log("Invalid Credentials");
+  //   }
+  // };
+
+  const PostData = async (e) => {
+    e.preventDefault();
+    console.log(text);
+    console.log(password);
+    //   axios.post("/login", {
+    //     method: "POST",
+    //     PORT: "5000",
+    //     headers: { "Content-Type": "application/json" },
+    //     body: JSON.stringify({
+    //       text,
+    //       password,
+    //     }),
+    //   })
+    //     .then(() => console.log("res"))
+    //     .catch((err) => console.log(err));
+    // };
+    axios
+      .post("/login", {
+        text,
+        password,
+      })
+      .then((res) => {
+        if (res.status === 201) {
+          toast.success("Login Successful !", {
+            position: toast.POSITION.BOTTOM_RIGHT,
+            className: "toast-login",
+          });
+          setSpinner(true);
+          setTimeout(() => {
+            history.push("/");
+          }, 1000);
+          console.log("Login Successful");
+        } else {
+          toast.error("Invalid Credentials !", {
+            position: toast.POSITION.BOTTOM_RIGHT,
+            className: "toast-login",
+          });
+          console.log("Invalid Credentials");
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   const [spinner, setSpinner] = useState(false);
   useEffect(() => {
     setSpinner(true);
