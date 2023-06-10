@@ -459,3 +459,6 @@ tr:nth-child(even) {
 .dropdown-menu li:hover {
   color: #5082ff !important;
 }
+.ml-auto {
+  margin-left: auto;
+}

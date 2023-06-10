@@ -143,7 +143,9 @@ function Profile() {
               }}
             >
               <div>
-                <div>Hello ! {userData.fname} {userData.lname}</div>
+                <div>
+                  Hello ! {userData.fname} {userData.lname}
+                </div>
                 <div className="w-50 mt-2" style={{ fontSize: "18px" }}>
                   This is your profile page. You can see the progress you've
                   made with your work and manage your projects or assigned tasks

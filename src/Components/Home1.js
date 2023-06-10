@@ -74,6 +74,7 @@ const getTransactions = () => {
     return [];
   }
 };
+
 function ResponsiveDrawer() {
   const newPlugin = defaultLayoutPlugin();
   useEffect(() => {
@@ -105,7 +106,7 @@ function ResponsiveDrawer() {
 
   const [date1, setDate1] = useState();
   setInterval(() => {
-    setDate1(refreshDate(new Date()))
+    setDate1(refreshDate(new Date()));
   }, 1000);
 
   const refreshDate = (date) => {
@@ -190,9 +191,9 @@ function ResponsiveDrawer() {
             fontSize: "20px",
           }}
         >
-          <li className="active py-2" style={{ width: "100%" }}>
+          <li className=" py-2" style={{ width: "100%" }}>
             <div
-              className="active p-3 tab align-items-center text-white d-flex"
+              className=" p-3 tab align-items-center text-white d-flex"
               type="button"
               data-toggle="tab"
               href="#home1"
@@ -201,7 +202,7 @@ function ResponsiveDrawer() {
               Home
             </div>
           </li>
-          <li className="py-2" style={{ width: "100%" }}      onClick={closeEditor}>
+          <li className="py-2" style={{ width: "100%" }} onClick={closeEditor}>
             <div
               className="p-3 tab align-items-center d-flex text-white"
               type="button"
@@ -215,7 +216,7 @@ function ResponsiveDrawer() {
               Compose Email
             </div>
           </li>
-          <li className="py-2" style={{ width: "100%" }}      onClick={closeEditor}>
+          <li className="py-2" style={{ width: "100%" }} onClick={closeEditor}>
             <div
               className="p-3 tab align-items-center d-flex text-white"
               type="button"
@@ -229,7 +230,7 @@ function ResponsiveDrawer() {
               DropBox
             </div>
           </li>
-          <li className="py-2" style={{ width: "100%" }}      onClick={closeEditor}>
+          <li className="py-2" style={{ width: "100%" }} onClick={closeEditor}>
             <div
               className="p-3 tab align-items-center d-flex text-white"
               type="button"
@@ -243,9 +244,13 @@ function ResponsiveDrawer() {
               Calendar
             </div>
           </li>
-          <li className="py-2" style={{ width: "100%" }}      onClick={closeEditor}>
+          <li
+            className="active py-2"
+            style={{ width: "100%" }}
+            onClick={closeEditor}
+          >
             <div
-              className="p-3 tab align-items-center d-flex text-white"
+              className=" active p-3 tab align-items-center d-flex text-white"
               type="button"
               data-toggle="tab"
               href="#transactions"
@@ -314,8 +319,7 @@ function ResponsiveDrawer() {
     email: "",
   });
 
-
-   const callProfilePage = async () => {
+  const callProfilePage = async () => {
     const res = await fetch("/users", {
       method: "GET",
       headers: {
@@ -537,7 +541,14 @@ function ResponsiveDrawer() {
     id: new Date().getTime(),
   });
   // const [transaction, setTrasaction] = useState(getTransactions());
-  const [details, setDetails] = useState(getTransactions());
+  const [details, setDetails] = useState([]);
+
+  useEffect(() => {
+    axios.get("/payments").then((res) => {
+      console.log(res.data.mydata);
+      setDetails(res.data.mydata);
+    });
+  }, []);
 
   const handleTransaction = (e) => {
     name = e.target.name;
@@ -559,13 +570,13 @@ function ResponsiveDrawer() {
   const [failed, setFailed] = useState(Number);
   const [pending, setPending] = useState(Number);
   const success = () => {
-    const totalSuccess = details.filter(
+    const totalSuccess = details?.filter(
       (e) => e.status === "Successful"
     ).length;
 
-    const totalFailed = details.filter((e) => e.status === "Failed").length;
+    const totalFailed = details?.filter((e) => e.status === "Failed").length;
 
-    const totalPending = details.filter((e) => e.status === "Pending").length;
+    const totalPending = details?.filter((e) => e.status === "Pending").length;
 
     setSuccessfull(totalSuccess);
     setFailed(totalFailed);
@@ -587,7 +598,7 @@ function ResponsiveDrawer() {
   ];
   const [actualData, setActualData] = useState([]);
   const lineChart = () => {
-    const output = details.map((e) => {
+    const output = details?.map((e) => {
       const res = new Date(e.date);
       let name = month[res.getMonth()];
       return { amount: e.amount, month: name };
@@ -653,7 +664,9 @@ function ResponsiveDrawer() {
                   className="px-lg-5 px-md-5 px-3 mb-lg-0 mb-2"
                   id="dateandtime"
                   style={{ marginLeft: "auto", fontSize: "17px" }}
-                >{date1}</div>
+                >
+                  {date1}
+                </div>
                 <div
                   className="px-2 navbar-nav"
                   id="loginProfileIcon"
@@ -679,43 +692,47 @@ function ResponsiveDrawer() {
                           className="list-unstyled text-white m-0"
                           style={{ fontSize: "14px" }}
                         >
-                        {console.log(userData.fname)}
-                        {userData.fname !== "" ? (
-                          <NavLink
-                            to="/profile"
-                            className="text-decoration-none text-white"
-                          >
-                            <div style={{ bottom: "1px solid #8080804d" }}>
-                              <div className="" style={{ fontWeight: "600" }}>
-                                Hello! {userData.fname}
-                              </div>
-                              <div
-                                className="mb-1"
-                                style={{ fontWeight: "400", fontSize: "13px" }}
-                              >
-                                {userData.email}
-                              </div>
-                            </div>
-                          </NavLink>
-                          ):(
-                        <div style={{ color: "white" }}>
-                          <div style={{ fontWeight: "600" }}>Welcome</div>
-                          <div>to access account</div>
-                          <NavLink to="/login">
-                            <div
-                              className="btn btn-danger mt-3 mb-2 bg-transparent loginBtn"
-                              style={{
-                                color: "#5082ff",
-                                transition: "0.5s",
-                                fontWeight: "600",
-                                border: "1px solid #5082ff",
-                                fontSize:"14px"
-                              }}
+                          {console.log(userData.fname)}
+                          {userData.fname !== "" ? (
+                            <NavLink
+                              to="/profile"
+                              className="text-decoration-none text-white"
                             >
-                              LOGIN / SIGNUP
+                              <div style={{ bottom: "1px solid #8080804d" }}>
+                                <div className="" style={{ fontWeight: "600" }}>
+                                  Hello! {userData.fname}
+                                </div>
+                                <div
+                                  className="mb-1"
+                                  style={{
+                                    fontWeight: "400",
+                                    fontSize: "13px",
+                                  }}
+                                >
+                                  {userData.email}
+                                </div>
+                              </div>
+                            </NavLink>
+                          ) : (
+                            <div style={{ color: "white" }}>
+                              <div style={{ fontWeight: "600" }}>Welcome</div>
+                              <div>to access account</div>
+                              <NavLink to="/login">
+                                <div
+                                  className="btn btn-danger mt-3 mb-2 bg-transparent loginBtn"
+                                  style={{
+                                    color: "#5082ff",
+                                    transition: "0.5s",
+                                    fontWeight: "600",
+                                    border: "1px solid #5082ff",
+                                    fontSize: "14px",
+                                  }}
+                                >
+                                  LOGIN / SIGNUP
+                                </div>
+                              </NavLink>
                             </div>
-                          </NavLink>
-                        </div>)}
+                          )}
                           <hr style={{ color: "#A9ABB3" }}></hr>
                           <li style={{ marginTop: "12px" }}>Home</li>
                           <li>Compose Email</li>
@@ -1977,14 +1994,16 @@ function ResponsiveDrawer() {
                                       />
                                     </div>
                                     <div className="d-flex justify-content-center my-5">
-                                      <button className="btn btn-primary border-0 mx-2"
+                                      <button
+                                        className="btn btn-primary border-0 mx-2"
                                         onClick={
                                           recorderControls.startRecording
                                         }
                                       >
                                         Start recording
                                       </button>
-                                      <button  className="btn btn-danger border-0 mx-2"
+                                      <button
+                                        className="btn btn-danger border-0 mx-2"
                                         onClick={recorderControls.stopRecording}
                                       >
                                         Stop recording
@@ -2205,7 +2224,7 @@ function ResponsiveDrawer() {
                       <div
                         className="p-3"
                         style={{
-                          // height: "90vh",
+                          height: "90vh",
                           borderRadius: "15px",
                           background: "#1a1a1a",
                         }}
@@ -2348,22 +2367,34 @@ function ResponsiveDrawer() {
                                 <table className="bg-white w-100">
                                   <tr style={{ top: "0", position: "sticky" }}>
                                     <th>S.No</th>
-                                    <th>User Name</th>
+                                    <th style={{ minWidth: "200px" }}>
+                                      User Name
+                                    </th>
+                                    <th style={{ minWidth: "200px" }}>Email</th>
+                                    <th style={{ minWidth: "200px" }}>
+                                      Transaction Date
+                                    </th>
+                                    <th>Transaction Time</th>
                                     <th>Transaction ID</th>
-                                    <th>Transaction Status</th>
-                                    <th>Transaction Date</th>
+                                    <th>Receipt No.</th>
                                     <th>Transaction Amount</th>
+                                    <th>Currency</th>
+                                    <th>Transaction Status</th>
                                   </tr>
-                                  {details.reverse().map((e, key) => {
+                                  {details?.map((e, key) => {
                                     let count = details.length;
                                     return (
                                       <tr>
                                         <td>{key + 1}</td>
                                         <td>{e.name}</td>
-                                        <td>{e.id}</td>
-                                        <td>{e.status}</td>
-                                        <td>{e.date}</td>
+                                        <td>{e.email}</td>
+                                        <td>{e.txnDate}</td>
+                                        <td>{e.txnTime}</td>
+                                        <td>{e.paymentId}</td>
+                                        <td>{e.receipt}</td>
                                         <td>{e.amount}</td>
+                                        <td>{e.currency}</td>
+                                        <td>success</td>
                                       </tr>
                                     );
                                   })}
@@ -2581,7 +2612,7 @@ function ResponsiveDrawer() {
                                         style={{ height: "100%" }}
                                         data={{
                                           labels: month,
-                                          // labels: details.map((e) => e.status),
+                                          // labels: details?.map((e) => e.status),
                                           datasets: [
                                             {
                                               label: "Transactions 2022",
@@ -2612,7 +2643,7 @@ function ResponsiveDrawer() {
                                             {
                                               label: "Transactions 2021",
 
-                                              data: details.map(
+                                              data: details?.map(
                                                 (e) => e.status
                                               ),
                                               borderColor: [
