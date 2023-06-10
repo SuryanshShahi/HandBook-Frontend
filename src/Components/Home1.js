@@ -544,10 +544,13 @@ function ResponsiveDrawer() {
   const [details, setDetails] = useState([]);
 
   useEffect(() => {
-    axios.get("/payments").then((res) => {
-      console.log(res.data.mydata);
-      setDetails(res.data.mydata);
-    });
+    axios
+      .get("/payments")
+      .then((res) => {
+        console.log(res.data.mydata);
+        setDetails(res.data.mydata);
+      })
+      .catch((err) => console.log(err));
   }, []);
 
   const handleTransaction = (e) => {
