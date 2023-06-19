@@ -122,7 +122,10 @@ function ResponsiveDrawer() {
   const closeEditor = () => {
     setdrawerWidth(266);
     document.body.style.background = "black";
-    document.getElementById("navbar").style.display = "block";
+    var a = document.getElementById("navbar");
+    if (a.style.display !== "block") {
+      a.style.display = "block";
+    }
     setActive(false);
   };
   const drawer = (
@@ -191,9 +194,9 @@ function ResponsiveDrawer() {
             fontSize: "20px",
           }}
         >
-          <li className=" py-2" style={{ width: "100%" }}>
+          <li className="active py-2" style={{ width: "100%" }}>
             <div
-              className=" p-3 tab align-items-center text-white d-flex"
+              className="active p-3 tab align-items-center text-white d-flex"
               type="button"
               data-toggle="tab"
               href="#home1"
@@ -244,13 +247,9 @@ function ResponsiveDrawer() {
               Calendar
             </div>
           </li>
-          <li
-            className="active py-2"
-            style={{ width: "100%" }}
-            onClick={closeEditor}
-          >
+          <li className=" py-2" style={{ width: "100%" }} onClick={closeEditor}>
             <div
-              className=" active p-3 tab align-items-center d-flex text-white"
+              className=" p-3 tab align-items-center d-flex text-white"
               type="button"
               data-toggle="tab"
               href="#transactions"
@@ -843,7 +842,7 @@ function ResponsiveDrawer() {
           >
             <Toolbar />
             {!isActive ? (
-              <div className="contentBg" style={{ height: "70vh" }}>
+              <div className="contentBg" style={{ height: "60vh" }}>
                 <div
                   className="content position-relative"
                   style={{ top: "60%" }}
@@ -904,199 +903,12 @@ function ResponsiveDrawer() {
                                 id="recent"
                                 className="active tab-pane overflow-auto"
                               >
-                                <div className="d-flex">
-                                  {text.map((e) => {
-                                    return (
-                                      <div
-                                        className="p-3 mt-2 mr-3 itemsCard position-relative"
-                                        key={e.id}
-                                        style={{
-                                          transition: "0.5s",
-                                          minWidth: "172px",
-                                          height: "290px",
-                                          background: "#262626",
-                                          borderRadius: "15px",
-                                        }}
-                                      >
-                                        <div
-                                          className="openEditor position-absolute py-3 px-3 shadow text-white"
-                                          style={{
-                                            left: "32%",
-                                            top: "43%",
-                                            border: "2px solid white",
-                                            transition: "0.5s",
-                                            borderRadius: "50px",
-                                            lineHeight: "0",
-                                            cursor: "pointer",
-                                          }}
-                                          onClick={() => showEditor(e.id)}
-                                        >
-                                          Visit
-                                        </div>
-                                        <div className="justify-content-center d-flex align-items-center">
-                                          <div
-                                            className="hideText"
-                                            style={{
-                                              wordBreak: "break-all",
-                                              fontWeight: "500",
-                                              color: "white",
-                                            }}
-                                          >
-                                            {e.title || "Untitled"}
-                                          </div>
-                                          <div
-                                            className="ml-auto text-white removeBtn"
-                                            style={{
-                                              fontSize: "30px",
-                                              lineHeight: "0",
-                                              marginBottom: "7px",
-                                              cursor: "pointer",
-                                            }}
-                                            onClick={() => removeItem(e.id)}
-                                          >
-                                            &times;
-                                          </div>
-                                        </div>
-                                        <div
-                                          style={{
-                                            wordBreak: "break-all",
-                                            color: "#ffffff99",
-                                            fontSize: "14px",
-                                          }}
-                                          className="mt-2 hideText"
-                                        >
-                                          {e.description}
-                                        </div>
-                                      </div>
-                                    );
-                                  })}
-                                  <div
-                                    className="p-3 mt-2 justify-content-center align-items-center d-flex addItems"
-                                    style={{
-                                      minWidth: "172px",
-                                      transition: "0.4s",
-                                      height: "290px",
-                                      background: "#262626",
-                                      borderRadius: "15px",
-                                      cursor: "pointer",
-                                    }}
-                                    onClick={showEditor}
-                                  >
-                                    <div>
-                                      <div
-                                        className="justify-content-center d-flex align-items-center position-relative"
-                                        style={{
-                                          height: "60px",
-                                          width: "60px",
-                                          background: "#5082ff",
-                                          borderRadius: "50%",
-                                          left: "25%",
-                                        }}
-                                      >
-                                        <div
-                                          className="fa fa-sticky-note fa-2x"
-                                          style={{ color: "black" }}
-                                        ></div>
-                                        <div
-                                          className="d-flex justify-content-center align-items-center position-absolute"
-                                          style={{
-                                            height: "13px",
-                                            width: "13px",
-                                            top: "33px",
-                                            left: "33px",
-                                            boxShadow:
-                                              "0 1px 6px rgba(0,0,0,0.2)",
-                                            background: "#5082ff",
-                                            borderRadius: "100%",
-                                          }}
-                                        >
-                                          <span
-                                            style={{
-                                              fontSize: "20px",
-                                              fontWeight: 900,
-                                              lineHeight: 0,
-                                              marginBottom: "5px",
-                                            }}
-                                          >
-                                            +
-                                          </span>
-                                        </div>
-                                      </div>
-                                      <div className="text-white mt-3">
-                                        Create new note
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
+                               
                               </div>
                               <div id="suggested" className="tab-pane">
                                 <div className="d-flex">
                                   {" "}
-                                  {text.map((e) => {
-                                    return (
-                                      <div
-                                        className="p-3 mt-2 mr-3 itemsCard position-relative"
-                                        key={e.id}
-                                        style={{
-                                          transition: "0.5s",
-                                          minWidth: "172px",
-                                          height: "290px",
-                                          background: "#262626",
-                                          borderRadius: "15px",
-                                        }}
-                                      >
-                                        <div
-                                          className="openEditor position-absolute py-3 px-3 shadow text-white"
-                                          style={{
-                                            left: "32%",
-                                            top: "43%",
-                                            border: "2px solid white",
-                                            transition: "0.5s",
-                                            borderRadius: "50px",
-                                            lineHeight: "0",
-                                            cursor: "pointer",
-                                          }}
-                                          onClick={() => showEditor(e.id)}
-                                        >
-                                          Visit
-                                        </div>
-                                        <div className="justify-content-center d-flex align-items-center">
-                                          <div
-                                            className="hideText"
-                                            style={{
-                                              wordBreak: "break-all",
-                                              fontWeight: "500",
-                                              color: "white",
-                                            }}
-                                          >
-                                            {e.title || "Untitled"}
-                                          </div>
-                                          <div
-                                            className="ml-auto text-white removeBtn"
-                                            style={{
-                                              fontSize: "30px",
-                                              lineHeight: "0",
-                                              marginBottom: "7px",
-                                              cursor: "pointer",
-                                            }}
-                                            onClick={() => removeItem(e.id)}
-                                          >
-                                            &times;
-                                          </div>
-                                        </div>
-                                        <div
-                                          style={{
-                                            wordBreak: "break-all",
-                                            color: "#ffffff99",
-                                            fontSize: "14px",
-                                          }}
-                                          className="mt-2 hideText"
-                                        >
-                                          {e.description}
-                                        </div>
-                                      </div>
-                                    );
-                                  })}
+                                  
                                 </div>
                               </div>
                             </div>
@@ -1381,14 +1193,14 @@ function ResponsiveDrawer() {
                             style={{ width: "70px", paddingTop: "2px" }}
                           ></hr>
                           <div className="row mt-5 mx-3">
-                            <div className="col-8 gx-0">
+                            <div className="col-lg-8 gx-0">
                               <form
                                 ref={form}
                                 className=""
                                 onSubmit={sendEmail}
                               >
-                                <div>
-                                  <div className="row mr-4">
+                                <div className="mt-lg-0 mt-5">
+                                  <div className="row mr-lg-4">
                                     <div className="col-6 mb-4">
                                       <TextField
                                         className="w-100"
@@ -1399,7 +1211,10 @@ function ResponsiveDrawer() {
                                         onChange={handleInputs}
                                         label="Full Name"
                                         variant="filled"
-                                        sx={{ color: "white" }}
+                                        sx={{
+                                          color: "white",
+                                          background: "#5082ff12",
+                                        }}
                                       />
                                     </div>
                                     <div className="col-6 mb-4">
@@ -1412,12 +1227,16 @@ function ResponsiveDrawer() {
                                         onChange={handleInputs}
                                         label="Email"
                                         variant="filled"
-                                        sx={{ color: "white" }}
+                                        sx={{
+                                          color: "white",
+                                          background: "#5082ff12",
+                                        }}
                                       />
                                     </div>
                                     <div className="col-12">
                                       <textarea
                                         rows={5}
+                                        id="filled-basic"
                                         className="w-100 p-2"
                                         placeholder="Message..."
                                         name="message"
@@ -1439,7 +1258,7 @@ function ResponsiveDrawer() {
                               </form>
                             </div>
                             <div
-                              className="col-4 px-4"
+                              className="col-lg-4 px-4 order-lg-last order-first"
                               style={{
                                 height: "100%",
                                 color: "black",
@@ -2227,7 +2046,7 @@ function ResponsiveDrawer() {
                       <div
                         className="p-3"
                         style={{
-                          height: "90vh",
+                          // height: "105vh",
                           borderRadius: "15px",
                           background: "#1a1a1a",
                         }}
@@ -2279,7 +2098,7 @@ function ResponsiveDrawer() {
                             className="bg-white my-4"
                             style={{ borderRadius: "15px" }}
                           >
-                            <div className="d-flex align-items-center p-3">
+                            <div className="d-flex align-items-center p-3 overflow-auto">
                               <div className="mr-4">
                                 <TextField
                                   type="text"
@@ -2289,6 +2108,7 @@ function ResponsiveDrawer() {
                                   value={transaction.name}
                                   variant="outlined"
                                   color="primary"
+                                  style={{ minWidth: "180px" }}
                                 />
                               </div>
                               <div className="mx-4">
@@ -2300,6 +2120,7 @@ function ResponsiveDrawer() {
                                   value={transaction.amount}
                                   variant="outlined"
                                   color="primary"
+                                  style={{ minWidth: "150px" }}
                                 />
                               </div>
                               <div className="mx-4">
@@ -2385,19 +2206,18 @@ function ResponsiveDrawer() {
                                     <th>Transaction Status</th>
                                   </tr>
                                   {details?.map((e, key) => {
-                                    let count = details.length;
                                     return (
                                       <tr>
                                         <td>{key + 1}</td>
                                         <td>{e.name}</td>
                                         <td>{e.email}</td>
-                                        <td>{e.txnDate}</td>
+                                        <td>{e.txnDate ?? e.txnDate}</td>
                                         <td>{e.txnTime}</td>
                                         <td>{e.paymentId}</td>
                                         <td>{e.receipt}</td>
                                         <td>{e.amount}</td>
                                         <td>{e.currency}</td>
-                                        <td>success</td>
+                                        <td>{e.status || "success"}</td>
                                       </tr>
                                     );
                                   })}
@@ -2420,7 +2240,7 @@ function ResponsiveDrawer() {
                                         <div className="col-lg-6 col-md-12 col-12">
                                           <h5>Successful Transactions</h5>
                                           <h4 className="font-weight-bold">
-                                            {successfull || 7956}
+                                            {details.length + successfull || 0}
                                           </h4>
                                           <div className="color">
                                             <div className="fa fa-arrow-up fa-rotate-45 fa-lg font-weight-lighter pt-1"></div>
@@ -2437,17 +2257,8 @@ function ResponsiveDrawer() {
                                         <div className="col-lg-6 col-md-12 col-12 d-flex justify-content-end">
                                           <div style={{ width: "120px" }}>
                                             <CircularProgressbar
-                                              value={
-                                                (successfull / details.length) *
-                                                  100 || 72
-                                              }
-                                              text={`${
-                                                Math.round(
-                                                  (successfull /
-                                                    details.length) *
-                                                    100
-                                                ) || 72
-                                              }%`}
+                                              value={details.length || 0}
+                                              text={`${details.length || 0}%`}
                                               styles={buildStyles({
                                                 pathColor: "#4343cb",
                                                 textColor: "#4343cb",
@@ -2474,7 +2285,7 @@ function ResponsiveDrawer() {
                                         <div className="col-lg-6 col-md-12 col-12 ">
                                           <h5>Pending Transactions</h5>
                                           <h4 className="font-weight-bold">
-                                            {pending || 4658}
+                                            {pending || 0}
                                           </h4>
                                           <div className="">
                                             <div className="fa fa-arrow-up fa-rotate-45 fa-lg font-weight-lighter text-white pt-1"></div>
@@ -2492,13 +2303,13 @@ function ResponsiveDrawer() {
                                             <CircularProgressbar
                                               value={
                                                 (pending / details.length) *
-                                                  100 || 8
+                                                  100 || 0
                                               }
                                               text={`${
                                                 Math.round(
                                                   (pending / details.length) *
                                                     100
-                                                ) || 8
+                                                ) || 0
                                               }%`}
                                               styles={buildStyles({
                                                 pathColor: "#ff9800",
@@ -2526,7 +2337,7 @@ function ResponsiveDrawer() {
                                         <div className="col-lg-6 col-md-12 col-12">
                                           <h5>Failed Transactions</h5>
                                           <h4 className="font-weight-bold">
-                                            {failed || 1501}
+                                            {failed || 0}
                                           </h4>
                                           <div className="color1">
                                             <div className="fa fa-arrow-up fa-rotate-45 fa-lg  font-weight-lighter pt-1"></div>
@@ -2544,13 +2355,13 @@ function ResponsiveDrawer() {
                                             <CircularProgressbar
                                               value={
                                                 (failed / details.length) *
-                                                  100 || 20
+                                                  100 || 0
                                               }
                                               text={`${
                                                 Math.round(
                                                   (failed / details.length) *
                                                     100
-                                                ) || 20
+                                                ) || 0
                                               }%`}
                                               styles={buildStyles({
                                                 pathColor: "#c02d2d",

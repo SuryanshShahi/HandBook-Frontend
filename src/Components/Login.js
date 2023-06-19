@@ -47,18 +47,6 @@ function Login() {
     e.preventDefault();
     console.log(text);
     console.log(password);
-    //   axios.post("/login", {
-    //     method: "POST",
-    //     PORT: "5000",
-    //     headers: { "Content-Type": "application/json" },
-    //     body: JSON.stringify({
-    //       text,
-    //       password,
-    //     }),
-    //   })
-    //     .then(() => console.log("res"))
-    //     .catch((err) => console.log(err));
-    // };
     axios
       .post("/login", {
         text,

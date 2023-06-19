@@ -462,3 +462,7 @@ tr:nth-child(even) {
 .ml-auto {
   margin-left: auto;
 }
+
+#filled-basic {
+  color: white;
+}
