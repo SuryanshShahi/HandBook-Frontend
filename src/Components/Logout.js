@@ -6,7 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 function Logout() {
   const history = useHistory();
   useEffect(() => {
-    fetch("/logout", {
+    fetch("https://handbook-backend.onrender.com/logout", {
       method: "GET",
       headers: {
         Accept: "application/json",
