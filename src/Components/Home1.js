@@ -286,7 +286,7 @@ function ResponsiveDrawer() {
     console.log(form.current);
     emailjs
       .sendForm(
-        "service_bdy40vm",
+        "service_hecnupw",
         "template_dwlucdq",
         form.current,
         "lCP5fKsL73HkyO8v6"
@@ -902,14 +902,9 @@ function ResponsiveDrawer() {
                               <div
                                 id="recent"
                                 className="active tab-pane overflow-auto"
-                              >
-                               
-                              </div>
+                              ></div>
                               <div id="suggested" className="tab-pane">
-                                <div className="d-flex">
-                                  {" "}
-                                  
-                                </div>
+                                <div className="d-flex"> </div>
                               </div>
                             </div>
                           </div>
