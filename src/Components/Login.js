@@ -48,7 +48,7 @@ function Login() {
     console.log(text);
     console.log(password);
     axios
-      .post("https://handbook-backend.onrender.com/login", {
+      .post("/login", {
         text,
         password,
       })

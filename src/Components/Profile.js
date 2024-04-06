@@ -10,7 +10,7 @@ function Profile() {
 
   const callProfilePage = async () => {
     try {
-      const res = await fetch("https://handbook-backend.onrender.com/users", {
+      const res = await fetch("/users", {
         method: "GET",
         headers: {
           Accept: "application/json",

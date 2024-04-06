@@ -27,7 +27,7 @@ function Signup() {
 
     const { fname, lname, email, mobile, password, cpassword } = user;
     console.log(user);
-    const res = await fetch("https://handbook-backend.onrender.com/signup1", {
+    const res = await fetch("/signup1", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
